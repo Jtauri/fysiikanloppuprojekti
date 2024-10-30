@@ -147,6 +147,8 @@ print('Kävelydatan tehokkain taajuus on ',freq[L][psd[L]==np.max(psd[L])][0],'H
 print('Tämä vastaa askeleeseen kuluvaa aikaa ',1/freq[L][psd[L]==np.max(psd[L])][0],'s')
 print('Tällöin askelmäärä on', freq[L][psd[L]==np.max(psd[L])][0]*np.max(t),' askelta')
 
+st.write('Askelmäärä laskettuna Fourier-analyysin perusteella on ', freq[L][psd[L]==np.max(psd[L])][0]*np.max(t), ' askelta')
+
 #Kävelydatan tehokkain taajuus on  1.9343163645230346 Hz
 #Tämä vastaa askeleeseen kuluvaa aikaa  0.516978514135965 s
 #Tällöin askelmäärä on 228.0  askelta
@@ -182,9 +184,6 @@ folium.PolyLine(data[['Latitude (°)', 'Longitude (°)']], color='blue', opacity
 my_map.save('gps_reitti.html')
 #my_map
 
-st.subheader('Reittini kartalla:')
-st_map = st_folium(my_map, width=900, height=650, returned_objects=[])
-
 #Hieman heiluu reitti pyörätien laidasta laitaan vaikken edes humalassa ollut. Lasketaan kuljettu matka Haversinen kaavaa käyttäen.
 
 #Haversinen kaava: https://en.wikipedia.org/wiki/Haversine_formula
@@ -211,18 +210,25 @@ for i in range(1, len(data)):
 #lasketaan kokonaismatka
 total_distance = data['dist'].sum()
 print('Kuljettu matka:', total_distance, 'm')
+st.write('Kuljettu matka:', total_distance.round(1), 'm')
 
 #lasketaan keskinopeus
 total_time = data['Time (s)'].iloc[-1] - data['Time (s)'].iloc[0]
 average_speed = (total_distance/total_time)
 print('Keskinopeus:', average_speed.round(2), 'm/s')
+st.write('Keskinopeus:', average_speed.round(2), 'm/s')
 
 #lasketaan askelpituus
 askelpituus = total_distance/askelten_maara
 print('Askelten pituus:', askelpituus.round(2), 'm')
+st.write('Askelten pituus:', askelpituus.round(2), 'm')
 
 #Kuljettu matka: 200.42533936197154 m
 #Keskinopeus: 1.71 m/s
 #Askelten pituus: 0.88 m
 
 #Vaikuttaa ihan järkevältä tulokselta. Kävelyvauhti on noin 6 km/h ja askelpituus on noin 90 cm.
+
+
+st.subheader('Reittini kartalla:')
+st_map = st_folium(my_map, width=900, height=650, returned_objects=[])
