@@ -177,8 +177,10 @@ folium.PolyLine(data[['Latitude (°)', 'Longitude (°)']], color='blue', opacity
 #markkerit eivät toimineet streamlitin kanssa. ikonit puuttuivat.
 #merkitään reitin alku ja loppu (https://python-visualization.github.io/folium/latest/getting_started.html#Adding-markers)
 #(https://www.w3schools.com/python/pandas/ref_df_iloc.asp)
-#folium.Marker([data['Latitude (°)'].iloc[0], data['Longitude (°)'].iloc[0]], popup='Alku').add_to(my_map)
-#folium.Marker([data['Latitude (°)'].iloc[-1], data['Longitude (°)'].iloc[-1]], popup='Loppu').add_to(my_map)
+iconstart = folium.Icon(color='green', icon='play')
+iconend = folium.Icon(color='red', icon='stop')
+folium.Marker([data['Latitude (°)'].iloc[0], data['Longitude (°)'].iloc[0]], popup='Alku',icon=iconstart).add_to(my_map)
+folium.Marker([data['Latitude (°)'].iloc[-1], data['Longitude (°)'].iloc[-1]], popup='Loppu',icon=iconend).add_to(my_map)
 
 #tallennetaan kartta
 my_map.save('gps_reitti.html')
