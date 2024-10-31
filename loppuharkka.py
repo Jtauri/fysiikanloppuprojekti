@@ -131,13 +131,13 @@ psd = fourier*np.conj(fourier)/N #Tehospektri
 freq = np.fft.fftfreq(N,dt) #Taajuudet
 L = np.arange(1,int(N/2)) #Rajataan pois nollataajuus ja negatiiviset taajuudet
 
-plt.figure(figsize=(20, 5))
+plt.figure(figsize=(20, 10))
 plt.plot(freq[L],psd[L].real)
 plt.title('Tehospektri')
 plt.ylabel('Teho')
 plt.xlabel('Taajuus')
 plt.grid()
-plt.axis([0,10,0,40000])
+plt.axis([0,4,0,40000])
 plt.show()
 
 st.subheader('Tehospektri:')
